@@ -1,0 +1,52 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+# Load your Titanic dataset
+df = pd.read_csv('titanic.csv')
+print(df.head())
+
+# Basic Info
+print(df.info())
+
+# Summary statistics
+print(df.describe(include='all'))
+
+# Null values
+print(df.isnull().sum())
+  df.hist(figsize=(12, 8), bins=20)
+plt.suptitle("Histograms of Numeric Features")
+plt.tight_layout()
+plt.show()
+
+# Boxplots
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='class', y='age', data=df)
+plt.title("Age Distribution by Passenger Class")
+plt.show()
+
+  plt.figure(figsize=(10, 6))
+sns.boxplot(x='Pclass', y='Age', data=df)
+plt.title("Age Distribution by Passenger Class")
+plt.show()
+
+  sns.pairplot(df[['Age', 'Fare', 'Pclass', 'Survived']].dropna(), hue='Survived')
+plt.suptitle("Pairplot of Selected Features", y=1.02)
+plt.show()
+
+# Correlation Matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+
+  
+pairplot_df = df[['Age', 'Fare', 'Pclass', 'Survived']].dropna()
+
+# Confirm dtypes and unique values
+print(pairplot_df.dtypes)
+print(pairplot_df['Survived'].unique())
+sns.pairplot(pairplot_df, hue='Survived')
+plt.suptitle("Pairplot of Selected Features", y=1.02)
+plt.show()
